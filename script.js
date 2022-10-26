@@ -1,14 +1,15 @@
 const addButton = document.querySelector("#add");
 
-const updateLSData=()=>{
-    const textAreaData=document.querySelectorAll("textarea");
-    const notes=[];
+const updateLSData = () => {
+  const textAreaData = document.querySelectorAll("textarea");
+  const notes = [];
 
-    textAreaData.forEach((note)=>{     //save in the form of array
-        return notes.push(note.value);
-    })
-    localStorage.setItem("notes",JSON.stringify(notes)); //converting the array into string
-}
+  textAreaData.forEach((note) => {
+    //save in the form of array
+    return notes.push(note.value);
+  });
+  localStorage.setItem("notes", JSON.stringify(notes)); //converting the array into string
+};
 const addNewNote = (text = "") => {
   const note = document.createElement("div");
   note.classList.add("note");
@@ -28,23 +29,23 @@ const addNewNote = (text = "") => {
   const mainDiv = note.querySelector(".main");
   const textArea = note.querySelector("textarea");
 
-//DELETE op
+  //DELETE op
   delButton.addEventListener("click", () => {
     note.remove();
     updateLSData();
   });
 
   // toggle using edit button
-  textArea.value = text;    //for the already saved data to be visible when it is in non-edit mode
+  textArea.value = text; //for the already saved data to be visible when it is in non-edit mode
   mainDiv.innerHTML = text;
 
   editButton.addEventListener("click", () => {
-    mainDiv.classList.toggle("hidden");  //only for checking on/off
+    mainDiv.classList.toggle("hidden"); //only for checking on/off
     textArea.classList.toggle("hidden");
   });
 
   textArea.addEventListener("change", (event) => {
-    const value = event.target.value;  //only to save the entered changes in the maindiv
+    const value = event.target.value; //only to save the entered changes in the maindiv
     mainDiv.innerHTML = value;
 
     updateLSData();
@@ -54,7 +55,7 @@ const addNewNote = (text = "") => {
 };
 
 // getting data back from localStorage
-const notes = JSON.parse(localStorage.getItem("notes"));  //parse converting the json string/text into js object(or in its original form) 
+const notes = JSON.parse(localStorage.getItem("notes")); //parse converting the json string/text into js object(or in its original form)
 
 if (notes) {
   notes.forEach((note) => addNewNote(note));
